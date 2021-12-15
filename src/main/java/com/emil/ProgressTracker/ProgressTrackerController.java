@@ -7,10 +7,10 @@ import java.util.List;
 @RestController
 public class ProgressTrackerController {
 
-    ExerciseDatabase db;
+    private ExerciseDatabase db;
 
     public ProgressTrackerController() {
-        this.db = new InMemoryExerciseDatabase();
+        this.db = InMemoryExerciseDatabase.getInstance();
     }
 
     @GetMapping("/entries")

@@ -6,9 +6,10 @@ import java.util.List;
 
 public class InMemoryExerciseDatabase implements ExerciseDatabase {
 
-    List<ExerciseEntry> exerciseEntries;
+    private static InMemoryExerciseDatabase instance = null;
+    private List<ExerciseEntry> exerciseEntries;
 
-    public InMemoryExerciseDatabase() {
+    private InMemoryExerciseDatabase() {
         exerciseEntries = new ArrayList<>();
 
         ExerciseEntry e1 = new ExerciseEntry("1", "Squat", 8, 80, new Date());
@@ -23,6 +24,11 @@ public class InMemoryExerciseDatabase implements ExerciseDatabase {
         exerciseEntries.add(e4);
         exerciseEntries.add(e5);
         exerciseEntries.add(e6);
+    }
+
+    public static InMemoryExerciseDatabase getInstance() {
+        if (instance == null) instance = new InMemoryExerciseDatabase();
+        return instance;
     }
 
     @Override
