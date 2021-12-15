@@ -1,8 +1,8 @@
 package com.emil.ProgressTracker;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class ProgressTrackerController {
@@ -13,9 +13,24 @@ public class ProgressTrackerController {
         this.db = new InMemoryExerciseDatabase();
     }
 
-    @GetMapping("/entry")
-    public ExerciseEntry entry(@RequestParam(value = "id") String id) {
-        return db.getExerciseEntry(id);
+    @GetMapping("/entries")
+    public List<ExerciseEntry> allEntries() {
+        return db.getAllExerciseEntries();
+    }
+
+    @GetMapping("/entries/{id}")
+    public ExerciseEntry entryById(@PathVariable String id) {
+        return db.findExerciseEntryById(id);
+    }
+
+    @PostMapping("/entries")
+    public ExerciseEntry newEntry(@RequestBody ExerciseEntry entry) {
+        return db.insertExerciseEntry(entry);
+    }
+
+    @DeleteMapping("/entries/{id}")
+    public void deleteEntryById(@PathVariable String id) {
+        db.deleteExerciseEntryById(id);
     }
 
 }

@@ -1,8 +1,11 @@
 package com.emil.ProgressTracker;
 
 import java.util.Date;
+import java.util.List;
 
 public interface ExerciseDatabase {
-    ExerciseEntry getExerciseEntry(String id);
-    boolean insertExerciseEntry(String id, String exerciseName, int reps, double weight, Date date);
+    ExerciseEntry findExerciseEntryById(String id);
+    List<ExerciseEntry> getAllExerciseEntries();
+    ExerciseEntry insertExerciseEntry(ExerciseEntry entry);
+    boolean deleteExerciseEntryById(String id);
 }

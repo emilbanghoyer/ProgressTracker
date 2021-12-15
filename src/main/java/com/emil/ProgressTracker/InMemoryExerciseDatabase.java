@@ -26,7 +26,7 @@ public class InMemoryExerciseDatabase implements ExerciseDatabase {
     }
 
     @Override
-    public ExerciseEntry getExerciseEntry(String id) {
+    public ExerciseEntry findExerciseEntryById(String id) {
         for (ExerciseEntry e : exerciseEntries) {
             if (e.getId().equals(id)) return e;
         }
@@ -34,9 +34,28 @@ public class InMemoryExerciseDatabase implements ExerciseDatabase {
     }
 
     @Override
-    public boolean insertExerciseEntry(String id, String exerciseName, int reps, double weight, Date date) {
-        ExerciseEntry entry = new ExerciseEntry(id, exerciseName, reps, weight, date);
+    public List<ExerciseEntry> getAllExerciseEntries() {
+        return exerciseEntries;
+    }
+
+    @Override
+    public ExerciseEntry insertExerciseEntry(ExerciseEntry entry) {
         exerciseEntries.add(entry);
-        return true;
+        return entry;
+    }
+
+    @Override
+    public boolean deleteExerciseEntryById(String id) {
+        int entryId = -1;
+        for (int i=0; i<exerciseEntries.size(); i++) {
+            if (exerciseEntries.get(i).getId().equals(id)) {
+                entryId = i;
+            }
+        }
+        if (entryId != -1) {
+            exerciseEntries.remove(entryId);
+            return true;
+        }
+        return false;
     }
 }
